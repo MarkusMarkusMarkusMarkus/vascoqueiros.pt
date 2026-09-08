@@ -62,19 +62,9 @@
 
   /* colapsado: mostra so o lead */
   .post:not(.aberto) .corpo > *:not(.lead){display:none}
-  .post:not(.aberto) .lang{display:none}
   .en{display:none}
   .post.mostra-en .pt{display:none}
   .post.mostra-en .en{display:block}
-
-  .lang{
-    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
-    margin:0 0 18px;user-select:none;
-  }
-  .lang button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;padding:0}
-  .lang button.activo{color:var(--ink)}
-  .lang a{border-bottom:none;color:inherit}
-  .lang a:hover{color:var(--ink)}
 
   .mais{
     display:inline-block;margin-top:14px;cursor:pointer;
@@ -144,7 +134,6 @@
       <span class="data">06 jul 2025</span>
       <h2><a href="#/comunicacao-de-massa" onclick="tg(event,'comunicacao-de-massa')">Comunicação de Massa</a></h2>
       <p class="orig"><a href="#" onclick="verEN(event,'comunicacao-de-massa')">Originalmente em Inglês</a></p>
-      <p class="lang"><button class="activo" onclick="lang(this,'pt')">PT</button> | <button onclick="lang(this,'en')">EN</button></p>
       <div class="corpo pt">
         <p class="lead">Em <a href="#/magia-das-maiorias" onclick="saltar(event,'magia-das-maiorias')">A Magia das Maiorias</a> dissemos que os sistemas de maioria funcionam porque combinam muitos palpites independentes e assim os seus erros se cancelam, aumentando as probabilidades de aterrar na resposta certa.</p>
         <blockquote>«A discussão livre e igual só pode cumprir a função que lhe é atribuída se for expressão e desenvolvimento <em>racionais</em> de pensamento <em>independente</em>, livre de doutrinação, manipulação, autoridade externa»</blockquote>
@@ -177,7 +166,6 @@
       <span class="data">05 jul 2025</span>
       <h2><a href="#/magia-das-maiorias" onclick="tg(event,'magia-das-maiorias')">A Magia das Maiorias</a></h2>
       <p class="orig"><a href="#" onclick="verEN(event,'magia-das-maiorias')">Originalmente em Inglês</a></p>
-      <p class="lang"><button class="activo" onclick="lang(this,'pt')">PT</button> | <button onclick="lang(this,'en')">EN</button></p>
       <div class="corpo pt">
         <p class="lead">Qual é o raciocínio por detrás dos sistemas de governo que dependem de maiorias?</p>
         <p>Uma motivação seria a de que uma maioria <em>legitima</em>. Isto é: haver uma maioria significa que há mais gente contente, ou pelo menos satisfeita, do que o contrário, o que empresta legitimidade ao que quer que esteja em causa.</p>
@@ -301,16 +289,8 @@ function verEN(e, id){
     li.classList.add('aberto');
     li.querySelector('.mais').textContent = 'fechar ↑';
   }
-  li.classList.add('mostra-en');
-  li.querySelectorAll('.lang button').forEach(b => b.classList.remove('activo'));
-  li.querySelectorAll('.lang button')[1].classList.add('activo');
+  li.classList.toggle('mostra-en');
   history.replaceState(null,'','#/'+id);
-}
-function lang(btn, l){
-  const li = btn.closest('.post');
-  li.classList.toggle('mostra-en', l === 'en');
-  li.querySelectorAll('.lang button').forEach(b => b.classList.remove('activo'));
-  btn.classList.add('activo');
 }
 const h = location.hash;
 if(h.startsWith('#/')){
